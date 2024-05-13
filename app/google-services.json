@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "568459215906",
+    "project_id": "mobileapplicationdevelop-8b4b4",
+    "storage_bucket": "mobileapplicationdevelop-8b4b4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:568459215906:android:4a17da489dd3c74ca9b67b",
+        "android_client_info": {
+          "package_name": "com.tsinghua.notepad_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmITloWBYxD8zE_fAxBGgx6FRvtTAJkOU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
