@@ -21,6 +21,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText passwordEditText;
     private Button loginButton;
     private Button registerButton;
+    private Button ForgetPasswordButton;
 
     private FirebaseAuth mAuth;
 
@@ -47,8 +48,8 @@ public class LoginActivity extends AppCompatActivity {
         usernameEditText = findViewById(R.id.usernameEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         loginButton = findViewById(R.id.LoginButton);
-
         registerButton = findViewById(R.id.registerButton);
+        ForgetPasswordButton = findViewById((R.id.ForgetPasswordButton));
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,6 +86,14 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Redirect to the registration screen
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        ForgetPasswordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, ForgetPasswordActivity.class);
                 startActivity(intent);
             }
         });
