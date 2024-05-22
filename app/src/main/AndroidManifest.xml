@@ -16,9 +16,6 @@
             android:name=".ForgetPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity2"
-            android:exported="false" />
-        <activity
             android:name=".account_info"
             android:exported="false" />
         <activity
