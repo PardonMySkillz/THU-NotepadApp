@@ -21,6 +21,7 @@
         <activity
             android:name=".account_info"
             android:exported="false" />
+
         <activity
             android:name=".MainActivity"
             android:exported="false" />
