@@ -20,7 +20,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
     FirebaseAuth auth;
-    Button button;
+    Button LogOutbutton;
+    Button accountInfoButton;
     TextView textView;
     FirebaseUser user;
     DatabaseReference databaseUserRef;
@@ -32,7 +33,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         auth = FirebaseAuth.getInstance();
-        button = findViewById(R.id.logoutButton);
+        LogOutbutton = findViewById(R.id.logoutButton);
+        accountInfoButton = findViewById(R.id.AccountInfoButton);
         textView = findViewById((R.id.SplashScreen));
         user = auth.getCurrentUser();
         databaseUserRef = FirebaseDatabase.getInstance("https://mobileapplicationdevelop-8b4b4-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Users");
@@ -70,13 +72,21 @@ public class MainActivity extends AppCompatActivity {
 //            textView.setText(WelcomeMessage);
 //        }
 
-        button.setOnClickListener(new View.OnClickListener() {
+        LogOutbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
                 finish();
+
+            }
+        });
+        accountInfoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), account_info.class);
+                startActivity(intent);
 
             }
         });
