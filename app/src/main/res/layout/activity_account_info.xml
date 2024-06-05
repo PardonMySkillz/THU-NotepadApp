@@ -41,23 +41,51 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/changeInfoButton"
+        android:id="@+id/changeUsernameButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginBottom="140dp"
-        android:text="Modify info"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="24dp"
+        android:text="Change Username"
+        app:layout_constraintBottom_toTopOf="@+id/updateProfilePicBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/DeleteAcctButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="140dp"
+        android:layout_width="154dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="24dp"
         android:text="Delete Account"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/profilePictureView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        app:layout_constraintBottom_toTopOf="@+id/changeUsernameButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EmailTextView"
+        app:layout_constraintVertical_bias="0.0"
+        android:scaleType="fitXY"
+
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/updateProfilePicBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="44dp"
+        android:text="Update Profile Pic"
+        app:layout_constraintBottom_toTopOf="@+id/DeleteAcctButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
