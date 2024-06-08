@@ -85,7 +85,6 @@ public class account_info extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 selectPicture();
-                finish();
             }
         });
 
@@ -104,7 +103,7 @@ public class account_info extends AppCompatActivity {
     private void uploadProfilePicture(Uri imageUri) {
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         String userId = currentUser.getUid();
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference("profile_pictures/" + userId + ".jpg");
+        StorageReference storageRef = FirebaseStorage.getInstance("gs://mobileapplicationdevelop-8b4b4.appspot.com").getReference("profile_pictures/" + userId + ".jpg");
 
         storageRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -116,6 +115,9 @@ public class account_info extends AppCompatActivity {
                         Toast.makeText(account_info.this, "Profile picture updated", Toast.LENGTH_SHORT).show();
                     }
                 });
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

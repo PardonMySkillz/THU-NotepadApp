@@ -2,7 +2,11 @@ package com.tsinghua.notepad_app;
 
 import com.google.firebase.Timestamp;
 
+
+
+
 public class Note {
+
     String title;
     String content;
     Timestamp timestamp;

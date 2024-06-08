@@ -16,10 +16,14 @@ import io.grpc.okhttp.internal.Util;
 
 public class NoteAdapter extends FirestoreRecyclerAdapter<Note, NoteAdapter.NoteViewHolder> {
     Context context;
+    FirestoreRecyclerOptions<Note> originalOptions;
+
+
 
     public NoteAdapter(@NonNull FirestoreRecyclerOptions<Note> options, Context context) {
         super(options);
         this.context = context;
+        this.originalOptions = options;
     }
 
     @Override

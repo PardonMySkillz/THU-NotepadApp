@@ -2,21 +2,23 @@ package com.tsinghua.notepad_app;
 
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.text.TextUtils;
+
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
+
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.Toolbar;
-import android.view.Menu;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,17 +30,15 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.Query;
+import androidx.appcompat.widget.SearchView;
 
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+
 
 public class MainActivity extends AppCompatActivity {
     FirebaseAuth auth;
     Button LogOutbutton;
     Button accountInfoButton;
-    Button addNoteButton;
-    TextView textView;
+    FloatingActionButton addNoteButton;
 
     String title, content, docId;
 
@@ -47,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
     FirebaseUser user;
     DatabaseReference databaseUserRef;
     NoteAdapter noteAdapter;
+    ImageView profilePic;
+    TextView splashScreen;
+    SearchView searchView;
 
 
     String username;
@@ -56,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -64,7 +68,11 @@ public class MainActivity extends AppCompatActivity {
         LogOutbutton = findViewById(R.id.logoutButton);
         accountInfoButton = findViewById(R.id.AccountInfoButton);
         addNoteButton =findViewById(R.id.add_note_button);
-        textView = findViewById((R.id.SplashScreen));
+        profilePic = findViewById(R.id.profile_pic);
+        splashScreen = findViewById(R.id.splashScreen);
+        searchView = findViewById(R.id.searchView);
+
+
         recyclerView = findViewById(R.id.recycler_view);
 
         user = auth.getCurrentUser();
@@ -87,8 +95,15 @@ public class MainActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     if (snapshot.exists()) {
                         username = snapshot.child("username").getValue(String.class);
-                        //updateTextview with username
-                        textView.setText(getString(R.string.welcome_msg, username));
+                        splashScreen.setText(getString(R.string.welcome_msg, username));
+                        String profilePicUrl = snapshot.child("profilePicUrl").getValue(String.class);
+                        if (!TextUtils.isEmpty(profilePicUrl)) {
+                            Glide.with(MainActivity.this)
+                                    .load(profilePicUrl)
+                                    .centerCrop()
+                                    .override(50,50)
+                                    .into(profilePic);
+                        }
                     } else {
                         //User data Not found
                         throw new RuntimeException("User data not found in the database.");
@@ -128,8 +143,37 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterNotes(newText);
+                return true;
+            }
+        });
+
+
+
 
     }
+
+    private void filterNotes(String searchText) {
+        Query query = Utility.getCollectionReferenceForNotes()
+                .orderBy("title")
+                .startAt(searchText)
+                .endAt(searchText + "\uf8ff");
+
+        FirestoreRecyclerOptions<Note> options = new FirestoreRecyclerOptions.Builder<Note>()
+                .setQuery(query, Note.class)
+                .build();
+        noteAdapter.updateOptions(options);
+        noteAdapter.notifyDataSetChanged();
+    }
+
     void setupRecyclerView(){
         Query query  = Utility.getCollectionReferenceForNotes().orderBy("timestamp",Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<Note> options = new FirestoreRecyclerOptions.Builder<Note>()
@@ -138,7 +182,6 @@ public class MainActivity extends AppCompatActivity {
         noteAdapter = new NoteAdapter(options,this);
         recyclerView.setAdapter(noteAdapter);
     }
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -159,6 +202,5 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    
-}
 
+}
