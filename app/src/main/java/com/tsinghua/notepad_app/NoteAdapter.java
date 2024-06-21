@@ -1,7 +1,6 @@
 package com.tsinghua.notepad_app;
 import android.content.Context;
 import android.content.Intent;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import io.grpc.okhttp.internal.Util;
 
 public class NoteAdapter extends FirestoreRecyclerAdapter<Note, NoteAdapter.NoteViewHolder> {
     Context context;
@@ -29,13 +27,13 @@ public class NoteAdapter extends FirestoreRecyclerAdapter<Note, NoteAdapter.Note
     @Override
     protected void onBindViewHolder(@NonNull NoteViewHolder holder, int position, @NonNull Note note) {
         holder.titleTextView.setText(note.title);
-        holder.contentTextView.setText(note.content);
+
         holder.timestampTextView.setText(Utility.timestampToString(note.timestamp));
 
         holder.itemView.setOnClickListener((v)->{
-            Intent intent = new Intent(context,NewNoteActivity.class);
+            Intent intent = new Intent(context, NoteDetailsActivity.class);
             intent.putExtra("title",note.title);
-            intent.putExtra("content",note.content);
+
             String docId = this.getSnapshots().getSnapshot(position).getId();
             intent.putExtra("docId",docId);
             context.startActivity(intent);
@@ -51,12 +49,11 @@ public class NoteAdapter extends FirestoreRecyclerAdapter<Note, NoteAdapter.Note
     }
 
     class NoteViewHolder extends RecyclerView.ViewHolder{
-        TextView titleTextView,contentTextView,timestampTextView;
+        TextView titleTextView,timestampTextView;
 
         public NoteViewHolder(@NonNull View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.note_title_text_view);
-            contentTextView = itemView.findViewById(R.id.note_content_text_view);
             timestampTextView = itemView.findViewById(R.id.note_timestamp_text_view);
         }
     }

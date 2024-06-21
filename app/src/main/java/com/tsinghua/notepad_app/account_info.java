@@ -112,7 +112,7 @@ public class account_info extends AppCompatActivity {
                     @Override
                     public void onSuccess(Uri uri) {
                         databaseUserRef.child("Users").child(userId).child("profilePicUrl").setValue(uri.toString());
-                        Toast.makeText(account_info.this, "Profile picture updated", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(account_info.this, "Profile picture updated, Restart the application to see new profile Picture ", Toast.LENGTH_SHORT).show();
                     }
                 });
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -138,8 +138,8 @@ public class account_info extends AppCompatActivity {
                         String email = snapshot.child("email").getValue(String.class);
                         String profilePicUrl = snapshot.child("profilePicUrl").getValue(String.class);
 
-                        textViewUsername.setText(username);
-                        textViewEmail.setText(email);
+                        textViewUsername.setText("username: " + username);
+                        textViewEmail.setText("email: " + email);
 
                         if (!TextUtils.isEmpty(profilePicUrl)) {
                             Glide.with(account_info.this)
@@ -181,6 +181,9 @@ public class account_info extends AppCompatActivity {
             Uri imageUri = data.getData();
 
             uploadProfilePicture(imageUri);
+            //change to a new MainActivity for updating the profile picture
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
         }
     }
 }

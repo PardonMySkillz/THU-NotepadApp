@@ -1,38 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="12dp"
-    android:layout_marginVertical="8dp"
+    android:layout_margin="8dp"
     android:backgroundTint="@color/white"
-    >
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
 
-    <TextView
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/note_title_text_view"
-        android:text="note title"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:layout_marginVertical="4dp"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/note_content_text_view"
-        android:text="this can be note content that can be long"
-        android:maxLines="2"
-        android:ellipsize="end"
-        android:textSize="17sp"
-        android:layout_marginVertical="4dp"/>
+        android:padding="12dp">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/note_timestamp_text_view"
-        android:text="note title"
-        android:textSize="12sp"
-        android:gravity="right"
-        android:layout_marginVertical="4dp"/>
+        <TextView
+            android:id="@+id/note_title_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Note Title"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:layout_marginBottom="4dp"
+            android:textStyle="bold" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/note_timestamp_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="end"
+            android:text="Timestamp"
+            android:textColor="#3F51B5"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

@@ -2,13 +2,13 @@ package com.tsinghua.notepad_app;
 
 import com.google.firebase.Timestamp;
 
-
+import java.util.ArrayList;
 
 
 public class Note {
 
     String title;
-    String content;
+    ArrayList<Content> contents;
     Timestamp timestamp;
 
     public Note(String title) {
@@ -22,8 +22,8 @@ public class Note {
         return title;
     }
 
-    public String getContent() {
-        return content;
+    public ArrayList<Content> getContent() {
+        return contents;
     }
 
     public Timestamp getTimestamp() {
@@ -34,8 +34,8 @@ public class Note {
         this.title = title;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setContents(ArrayList<Content> content) {
+        this.contents = contents;
     }
 
     public void setTimestamp(Timestamp timestamp) {
